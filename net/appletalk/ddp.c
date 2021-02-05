@@ -1936,12 +1936,9 @@ static int __init atalk_init(void)
 
 	rc = register_netdevice_notifier(&ddp_notifier);
 	if (rc)
-		goto out_snap;
+		goto out_sock;
 
-	rc = aarp_proto_init();
-	if (rc)
-		goto out_dev;
-
+	aarp_proto_init();
 	rc = atalk_proc_init();
 	if (rc)
 		goto out_aarp;
@@ -1955,6 +1952,7 @@ out_proc:
 	atalk_proc_exit();
 out_aarp:
 	aarp_cleanup_module();
+<<<<<<< HEAD
 out_dev:
 	unregister_netdevice_notifier(&ddp_notifier);
 out_snap:
@@ -1962,6 +1960,13 @@ out_snap:
 	dev_remove_pack(&ltalk_packet_type);
 	unregister_snap_client(ddp_dl);
 out_sock:
+=======
+	unregister_netdevice_notifier(&ddp_notifier);
+out_sock:
+	dev_remove_pack(&ppptalk_packet_type);
+	dev_remove_pack(&ltalk_packet_type);
+	unregister_snap_client(ddp_dl);
+>>>>>>> 471ced9e9d4e (Merge tag 'v3.18.139' into upstream)
 	sock_unregister(PF_APPLETALK);
 out_proto:
 	proto_unregister(&ddp_proto);
