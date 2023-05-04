@@ -1775,7 +1775,7 @@ static void do_cluster_freq_ctrl(long temp)
 				& BIT(_cpu)))
 				continue;
 
-		if (intelli_user_control > 0) {
+		  if (intelli_user_control > 0) {
 			if (mitigate) {
 				pr_info_ratelimited("Limiting CPU%d max frequency. Temp:%ld\n"
 					, _cpu
@@ -5109,7 +5109,7 @@ static int __ref set_enabled(const char *val, const struct kernel_param *kp)
 	if (*val == '0' || *val == 'n' || *val == 'N') {
 		intelli_enabled = 0;
 		interrupt_mode_init();
-		pr_info("%s: msm_thermal disabled!\n", KBUILD_MODNAME);
+	pr_info("%s: msm_thermal disabled!\n", KBUILD_MODNAME);
 	} else {
 		if (!intelli_enabled) {
 			intelli_enabled = 1;
@@ -7891,7 +7891,7 @@ fail:
 	if (ret)
 		pr_err("Failed reading node=%s, key=%s. err:%d\n",
 			node->full_name, key, ret);
-		pr_info("%s: msm_thermal_dev_probe failed!\n", KBUILD_MODNAME);
+		  pr_info("%s: msm_thermal_dev_probe failed!\n", KBUILD_MODNAME);
 probe_exit:
 	return ret;
 }
