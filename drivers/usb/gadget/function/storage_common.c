@@ -249,8 +249,8 @@ int fsg_lun_open(struct fsg_lun *curlun, const char *filename)
 	min_sectors = 1;
 	if (curlun->cdrom) {
 		min_sectors = 300;	/* Smallest track is 300 frames */
-		if (num_sectors >= 256*60*75) {
-			num_sectors = 256*60*75 - 1;
+		if (num_sectors >= 0xFFFFDF) {
+			num_sectors = 0xFFFFDF - 1;
 			LINFO(curlun, "file too big: %s\n", filename);
 			LINFO(curlun, "using only first %d blocks\n",
 					(int) num_sectors);
@@ -498,7 +498,7 @@ EXPORT_SYMBOL_GPL(fsg_store_file);
 ssize_t fsg_store_cdrom(struct fsg_lun *curlun, struct rw_semaphore *filesem,
 			const char *buf, size_t count)
 {
-	bool		cdrom;
+	bool	cdrom;
 	int		ret;
 
 	ret = strtobool(buf, &cdrom);
